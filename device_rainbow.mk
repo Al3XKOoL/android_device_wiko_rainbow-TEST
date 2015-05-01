@@ -20,7 +20,7 @@ PRODUCT_PACKAGES += \
     libxlog
 
 PRODUCT_PACKAGES += \
-    lights.rainbow
+    lights.mt6582
 
 PRODUCT_PACKAGES += \
     libmtkrilw
