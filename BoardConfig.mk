@@ -1,36 +1,87 @@
-USE_CAMERA_STUB := true
-
 # inherit from the proprietary version
--include vendor/mediatek/mt6592/BoardConfigVendor.mk
+-include vendor/wiko/rainbow/BoardConfigVendor.mk
 
-TARGET_BOARD_PLATFORM := mt6592
+TARGET_BOOTLOADER_BOARD_NAME := rainbow
+
+# Board
+TARGET_BOARD_PLATFORM := mt6582
 TARGET_NO_BOOTLOADER := true
-
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT_CPU := cortex-a7
+ARCH_ARM_HAVE_VFP := true
+ARCH_ARM_HAVE_NEON := true
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := cortex-a7
+DEVICE_RESOLUTION := 720x1280
+BOARD_HAS_NO_SELECT_BUTTON := true
+ARCH_ARM_HAVE_TLS_REGISTER := true
 
-TARGET_BOOTLOADER_BOARD_NAME := mt6592
+# power
+TARGET_POWERHAL_VARIANT := cm
+
+# Partitions
+# make_ext4fs requires numbers in dec format
+BOARD_BOOTIMAGE_PARTITION_SIZE := 6291456
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 6291456
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 943718400
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 968884224
+BOARD_FLASH_BLOCK_SIZE := 131072
 
 TARGET_USERIMAGES_USE_EXT4:=true
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
-BOARD_KERNEL_CMDLINE :=
+# BOARD_KERNEL_CMDLINE :=
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
 
-# make_ext4fs requires numbers in dec format
-BOARD_BOOTIMAGE_PARTITION_SIZE := 10485760
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 10485760
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 947912704
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 4303355904
-BOARD_FLASH_BLOCK_SIZE := 131072
+BOARD_CUSTOM_BOOTIMG_MK := device/wiko/rainbow/bootimg.mk
+BOARD_MKBOOTIMG_ARGS := --board 1336460062
 
+# Flags
+TARGET_GLOBAL_CFLAGS   += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
+
+TARGET_KMODULES := true
+
+TARGET_PREBUILT_KERNEL := device/wiko/rainbow/kernel
+TARGET_RECOVERY_FSTAB := device/wiko/rainbow/rootdir/root/recovery.fstab
+
+# Philz Recovery
+# RECOVERY_VARIANT := philz
+# BOARD_USE_MTK_LAYOUT := true
+# BOARD_MTK_BOOT_LABEL := "/bootimg"
+# BRIGHTNESS_SYS_FILE := "/sys/class/leds/lcd-backlight/brightness"
+# BOARD_USE_NTFS_3G := false
+
+# Deodex
+WITH_DEXPREOPT := false
+DISABLE_DEXPREOPT := true
+
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_MTK := true
+BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/wiko/rainbow/bluetooth
+
+# EGL settings
+BOARD_EGL_CFG := device/wiko/rainbow/rootdir/configs/egl.cfg
+USE_OPENGL_RENDERER := true
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+# BOARD_EGL_WORKAROUND_BUG_10194508 := true
+
+# HWComposer
+# BOARD_USES_HWCOMPOSER := true
+# BOARD_USE_SYSFS_VSYNC_NOTIFICATION := true
+
+# Enable WEBGL in WebKit
+# ENABLE_WEBGL := true
+
+# SELINUX
 BOARD_SEPOLICY_DIRS := \
-       device/mediatek/mt6592/sepolicy
+       device/wiko/rainbow/sepolicy
 
 BOARD_SEPOLICY_UNION := \
        device.te \
@@ -38,23 +89,12 @@ BOARD_SEPOLICY_UNION := \
        system.te \
        file_contexts
 
-TARGET_PREBUILT_KERNEL := device/mediatek/mt6592/kernel
-TARGET_RECOVERY_FSTAB := device/mediatek/mt6592/recovery.fstab
+# RIL
+BOARD_RIL_CLASS := ../../../device/wiko/rainbow/ril/
 
-BOARD_HAS_NO_SELECT_BUTTON := true
-
-BOARD_CUSTOM_BOOTIMG_MK := device/mediatek/mt6592/bootimg.mk
-BOARD_MKBOOTIMG_ARGS := --board 1400865686
-
-TARGET_KMODULES := true
-
-BOARD_EGL_CFG := device/mediatek/mt6592/egl.cfg
-
-BOARD_RIL_CLASS := ../../../device/mediatek/mt6592/ril/
-
+# WIFI
 BOARD_CONNECTIVITY_VENDOR := MediaTek
 BOARD_CONNECTIVITY_MODULE := conn_soc
-
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_mt66xx
