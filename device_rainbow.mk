@@ -22,8 +22,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.mt6582
 
-PRODUCT_PACKAGES += \
-    libmtkrilw
+#PRODUCT_PACKAGES += \
+#    libmtkrilw
 
 PRODUCT_PACKAGES += \
     audio.r_submix.default
@@ -47,8 +47,9 @@ PRODUCT_COPY_FILES += \
     device/wiko/rainbow/audio/audio_policy.conf:system/etc/audio_policy.conf
 
 PRODUCT_COPY_FILES += \
-    device/wiko/rainbow/rootdir/root/fstab.mt6582:root/fstab.mt6582 \
+    device/wiko/rainbow/rootdir/root/init.rc:root/init.rc \
     device/wiko/rainbow/rootdir/root/init.mt6582.rc:root/init.mt6582.rc \
+    device/wiko/rainbow/rootdir/root/fstab.mt6582:root/fstab.mt6582 \
     $(LOCAL_KERNEL):kernel
 
 PRODUCT_COPY_FILES += \

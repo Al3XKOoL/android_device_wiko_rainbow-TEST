@@ -14,7 +14,7 @@ fmradio.driver.enable=1
 ril.radiooff.poweroffMD=0
 
 mux.debuglog.enable=1
-rild.libpath=/system/lib/libmtkrilw.so
+rild.libpath=/system/lib/mtk-ril.so
 rild.libargs=-d /dev/ttyC0
 ril.specific.sm_cause=0
 ril.external.md=0
@@ -25,8 +25,8 @@ ril.telephony.mode=0
 ril.radiooff.poweroffMD=0
 ril.active.md=0
 
-ro.telephony.ril_class=MTKRIL
+ro.telephony.ril_class=MediaTekRIL
 
-debug.sf.ddms=1
+#debug.sf.ddms=1
 
 ro.opengles.version=131072
